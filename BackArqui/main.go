@@ -1,41 +1,24 @@
 package main
 
 import (
-	"database/sql"
+	"io"
 	"log"
+	"net/http"
 
-	_ "github.com/lib/pq"
+	"./common"
 )
 
+func helloServer(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, "hello, world!\n")
+}
+
 func main() {
-	db, err := sql.Open("postgres", "user=postgres dbname=test host=database sslmode=disable")
-	if err != nil {
-		log.Fatal(err)
+	common.StartUp()
+	http.HandleFunc("/hello", helloServer)
+	server := &http.Server{
+		Addr: common.AppConfig.Server,
 	}
-
-	err = db.Ping()
-	if err != nil {
-		log.Fatal("Error: Could not establish a connection with the database")
-	}
-
-	query, err := db.Prepare("SELECT last_name FROM actor")
-	if err != nil {
-		log.Fatal("error prepare query")
-	}
-
-	rows, err := query.Query()
-	defer rows.Close()
-	var names []string
-
-	for rows.Next() {
-		var name string
-		err1 := rows.Scan(&name)
-		if err1 != nil {
-			log.Fatal(err1)
-		}
-		names = append(names, name)
-	}
-	log.Print(names)
-	log.Print("Conecto")
-
+	log.Println("Listening...")
+	server.ListenAndServe()
+	defer common.GetSession().Close()
 }

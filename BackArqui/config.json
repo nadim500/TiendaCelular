@@ -1,0 +1,7 @@
+{
+  "Server": "0.0.0.0:8080",
+  "PostgresDBHost": "database",
+  "PostgresDBUser": "postgres",
+  "PostgresDBPwd": "quieserelmedeto1!",
+  "Database": "test"
+}
