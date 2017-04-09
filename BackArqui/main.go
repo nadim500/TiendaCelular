@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("postgres", "user=postgres dbname=postgres host=database sslmode=disable")
+	db, err := sql.Open("postgres", "user=postgres dbname=test host=database sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
