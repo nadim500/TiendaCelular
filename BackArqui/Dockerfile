@@ -6,9 +6,13 @@ WORKDIR /go/src/backapp
 
 COPY . /go/src/backapp
 
+ENV GOPATH /go/src/backapp
+
 #Installar las dependencias
 # go get install xx
 RUN go get github.com/lib/pq
+RUN go get github.com/gorilla/mux
+RUN go get github.com/gorilla/handlers
 
 EXPOSE 8080
 
