@@ -33,3 +33,20 @@ func GetCategories() ([]models.Category, error) {
 	}
 	return categories, err
 }
+
+/*CreateCategory crea en la base de datos una categoría*/
+func CreateCategory(c *models.Category) error {
+	var id int
+	db := common.GetSession()
+	err := db.QueryRow(
+		"INSERT INTO category(name,description) VALUES($1,$2) returning id_category;",
+		c.Name,
+		c.Description,
+	).Scan(&id)
+	if err != nil {
+		log.Printf("[Error insert category]: %s\n", err)
+		return err
+	}
+	c.IDCategory = id
+	return err
+}
