@@ -5,9 +5,9 @@ import "time"
 type (
 	/*Category model from category table*/
 	Category struct {
-		IDCategory  int    `json:"id_category"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
+		IDCategory  int    `json:"id_category,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Description string `json:"description,omitempty"`
 	}
 
 	/*Marca model from model table*/

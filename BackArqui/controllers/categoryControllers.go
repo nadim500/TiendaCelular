@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/mux"
+
 	"../common"
 	"../data"
 )
@@ -65,6 +67,49 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 	j, err := json.Marshal(CategoriesResource{Data: categories})
 	if err != nil {
 		log.Printf("[Error marshal get categories]: %s\n", err)
+		common.DisplayError(
+			w,
+			err,
+			"Error convert to json",
+			500,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
+/*UpdateCategory devuelve la categoria actualizada*/
+func UpdateCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var dataResource CategoryResource
+	err := json.NewDecoder(r.Body).Decode(&dataResource)
+	if err != nil {
+		log.Printf("[Error decode in update category]: %s\n", err)
+		common.DisplayError(
+			w,
+			err,
+			"Datos invalidos",
+			400,
+		)
+		return
+	}
+	category := &dataResource.Data
+	err = data.UpdateCategory(category, id)
+	if err != nil {
+		common.DisplayError(
+			w,
+			err,
+			"Error actualizando la category en la base de datos",
+			500,
+		)
+		return
+	}
+	j, err := json.Marshal(CategoryResource{Data: *category})
+	if err != nil {
+		log.Printf("[Error marshal actualizar category]: %s\n", err)
 		common.DisplayError(
 			w,
 			err,

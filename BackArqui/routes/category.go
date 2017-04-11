@@ -9,5 +9,6 @@ import (
 func SetCategoryRoutes(router *mux.Router) *mux.Router {
 	router.HandleFunc("/category", controllers.GetCategories).Methods("GET")
 	router.HandleFunc("/category", controllers.CreateCategory).Methods("POST")
+	router.HandleFunc("/category/{id}", controllers.UpdateCategory).Methods("PUT")
 	return router
 }

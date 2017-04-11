@@ -1,7 +1,9 @@
 package data
 
 import (
+	"errors"
 	"log"
+	"strconv"
 
 	"../common"
 	"../models"
@@ -48,5 +50,37 @@ func CreateCategory(c *models.Category) error {
 		return err
 	}
 	c.IDCategory = id
+	return err
+}
+
+/*UpdateCategory actualiza una categoria en la base de datos*/
+func UpdateCategory(c *models.Category, id string) error {
+	name := len(c.Name)
+	descr := len(c.Description)
+	query := "UPDATE category SET "
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		log.Printf("[Error convert id to int] %s\n", err)
+		return err
+	}
+	db := common.GetSession()
+	switch {
+	case name == 0 && descr == 0:
+		log.Println("[Sin datos para poder actualizar]")
+		err = errors.New("Sin datos para poder actualizar")
+		return err
+	case name != 0 && descr == 0:
+		query += "name = $1 WHERE id_category = $2"
+		query += " RETURNING id_category, name, description"
+		err = db.QueryRow(query, c.Name, i).Scan(&c.IDCategory, &c.Name, &c.Description)
+	case name == 0 && descr != 0:
+		query += "description = $1 WHERE id_category = $2"
+		query += " RETURNING id_category, name, description"
+		err = db.QueryRow(query, c.Description, i).Scan(&c.IDCategory, &c.Name, &c.Description)
+	case name != 0 && descr != 0:
+		query += "name = $1, description = $2 WHERE id_category = $3"
+		query += " RETURNING id_category, name, description"
+		err = db.QueryRow(query, c.Name, c.Description, i).Scan(&c.IDCategory, &c.Name, &c.Description)
+	}
 	return err
 }
