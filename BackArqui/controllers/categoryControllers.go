@@ -11,6 +11,65 @@ import (
 	"../data"
 )
 
+/*GetCategories devuelve todas las categorias disponibles*/
+func GetCategories(w http.ResponseWriter, r *http.Request) {
+	categories, err := data.GetCategories()
+	if err != nil {
+		common.DisplayError(
+			w,
+			err,
+			"Error en el servidor",
+			500,
+		)
+		return
+	}
+	j, err := json.Marshal(CategoriesResource{Data: categories})
+	if err != nil {
+		log.Printf("[Error marshal get categories]: %s\n", err)
+		common.DisplayError(
+			w,
+			err,
+			"Error convert to json",
+			500,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
+/*GetCategoryByID devuelve una categoria por su id*/
+func GetCategoryByID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	category, err := data.GetCategoryById(id)
+	if err != nil {
+		log.Printf("[Error en get by id category] %s\n", err)
+		common.DisplayError(
+			w,
+			err,
+			"No existe la categoria",
+			500,
+		)
+		return
+	}
+	j, err := json.Marshal(CategoryResource{Data: category})
+	if err != nil {
+		log.Printf("[Error marshal get category by id]: %s\n", err)
+		common.DisplayError(
+			w,
+			err,
+			"Error convert to json",
+			500,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
 /*CreateCategory devuelve la categoria creada*/
 func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	var dataResource CategoryResource
@@ -49,34 +108,6 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	w.Write(j)
-}
-
-/*GetCategories devuelve todas las categorias disponibles*/
-func GetCategories(w http.ResponseWriter, r *http.Request) {
-	categories, err := data.GetCategories()
-	if err != nil {
-		common.DisplayError(
-			w,
-			err,
-			"Error en el servidor",
-			500,
-		)
-		return
-	}
-	j, err := json.Marshal(CategoriesResource{Data: categories})
-	if err != nil {
-		log.Printf("[Error marshal get categories]: %s\n", err)
-		common.DisplayError(
-			w,
-			err,
-			"Error convert to json",
-			500,
-		)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
 	w.Write(j)
 }
 
@@ -121,4 +152,21 @@ func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(j)
+}
+
+/*DeleteCategory devulve OK si se elimino*/
+func DeleteCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := data.DeleteCategory(id)
+	if err != nil {
+		common.DisplayError(
+			w,
+			err,
+			"Error al eliminar la categoria",
+			500,
+		)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

@@ -36,6 +36,22 @@ func GetCategories() ([]models.Category, error) {
 	return categories, err
 }
 
+/*GetCategoryById nos retorna una categoria por su ID*/
+func GetCategoryById(id string) (models.Category, error) {
+	category := models.Category{}
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		log.Printf("[Error convert id to int] %s\n", err)
+		return category, err
+	}
+	db := common.GetSession()
+	err = db.QueryRow(
+		"SELECT id_category, name, description FROM category WHERE id_category=$1",
+		i,
+	).Scan(&category.IDCategory, &category.Name, &category.Description)
+	return category, err
+}
+
 /*CreateCategory crea en la base de datos una categoría*/
 func CreateCategory(c *models.Category) error {
 	var id int
@@ -81,6 +97,27 @@ func UpdateCategory(c *models.Category, id string) error {
 		query += "name = $1, description = $2 WHERE id_category = $3"
 		query += " RETURNING id_category, name, description"
 		err = db.QueryRow(query, c.Name, c.Description, i).Scan(&c.IDCategory, &c.Name, &c.Description)
+	}
+	return err
+}
+
+/*DeleteCategory borra una categoria de la base de datos */
+func DeleteCategory(id string) error {
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		log.Printf("[Error convert id to int]: %s\n", err)
+		return err
+	}
+	db := common.GetSession()
+	stmt, err := db.Prepare("DELETE FROM category WHERE id_category=$1")
+	if err != nil {
+		log.Printf("[Error en prepare query]: %s\n", err)
+		return err
+	}
+	_, err = stmt.Exec(i)
+	if err != nil {
+		log.Printf("[Error exec query consult]: %s\n", err)
+		return err
 	}
 	return err
 }
