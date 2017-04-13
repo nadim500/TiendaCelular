@@ -1,10 +1,10 @@
 # INDICE
 1. CATEGORIAS
-  1. [GET CATEGORIES](#get-categories)
-  2. [GET CATEGORY BY ID](#get-category-by-id)
-  3. [CREATE CATEGORY](#create-category)
-  4. [UPDATE CATEGORY](#update-category)
-  5. [DELETE CATEGORY](#delete-category)
+  * [GET CATEGORIES](#get-categories)
+  * [GET CATEGORY BY ID](#get-category-by-id)
+  * [CREATE CATEGORY](#create-category)
+  * [UPDATE CATEGORY](#update-category)
+  * [DELETE CATEGORY](#delete-category)
 2. MARCA
 
 # GET CATEGORIES
