@@ -30,6 +30,7 @@ CREATE TABLE product(
     images VARCHAR[],
     marca_id integer NOT NULL,
     category_id integer NOT NULL,
+    stock INTEGER NOT null,
     FOREIGN KEY (marca_id) REFERENCES marca (id_marca),
     FOREIGN KEY (category_id) REFERENCES category (id_category)
 )

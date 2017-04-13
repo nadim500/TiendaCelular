@@ -27,6 +27,7 @@ type (
 		Feature           string    `json:"feature"`
 		DateCreated       time.Time `json:"datecreated"`
 		Images            []string  `json:"images"`
+		Stock             int       `json:"stock"`
 		MarcaID           int       `json:"marca_id"`
 		CategoryID        int       `json:"category_id"`
 	}
