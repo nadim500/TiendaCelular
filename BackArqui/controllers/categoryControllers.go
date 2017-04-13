@@ -43,7 +43,7 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 func GetCategoryByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	category, err := data.GetCategoryById(id)
+	category, err := data.GetCategoryByID(id)
 	if err != nil {
 		log.Printf("[Error en get by id category] %s\n", err)
 		common.DisplayError(

@@ -36,8 +36,8 @@ func GetCategories() ([]models.Category, error) {
 	return categories, err
 }
 
-/*GetCategoryById nos retorna una categoria por su ID*/
-func GetCategoryById(id string) (models.Category, error) {
+/*GetCategoryByID nos retorna una categoria por su ID*/
+func GetCategoryByID(id string) (models.Category, error) {
 	category := models.Category{}
 	i, err := strconv.Atoi(id)
 	if err != nil {
