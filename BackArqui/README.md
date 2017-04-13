@@ -6,6 +6,11 @@
   - [UPDATE CATEGORY](#update-category)
   - [DELETE CATEGORY](#delete-category)
 2. MARCA
+  - [GET MARCAS](#get-marcas)
+  - [GET MARCA BY ID](#get-marca-by-id)
+  - [CREATE MARCA](#create-marca)
+  - [UPDATE MARCA](#update-marca)
+  - [DELETE MARCA](#delete-marca)
 
 # GET CATEGORIES
 
@@ -146,6 +151,168 @@
 **METHOD : ** `DELETE`
 
 **DESCRIPTION : ** `Elimina una categoria`
+
+**RESPONSE : **
+```json
+{
+  *sin contenido
+}
+```
+**RESPONSE ERROR : **
+```json
+{
+  "data": {
+  	"error": "string",
+    "message": "string",
+    "status": "int"
+  }
+}
+```
+# GET MARCAS
+
+**ROUTE : ** `/marca`
+
+**METHOD : ** `GET`
+
+**DESCRIPTION : ** `Devuelve todas las marcas en la web`
+
+**RESPONSE : **
+```json
+{
+  "data":[
+    {
+      "id_marca": "int",
+      "name": "string",
+      "description": "string",
+      "image": "string"
+    }
+  ]
+}
+```
+**RESPONSE ERROR : **
+```json
+{
+  "data": {
+  	"error": "string",
+    "message": "string",
+    "status": "int"
+  }
+}
+```
+# GET MARCA BY ID
+
+**ROUTE : ** `/marca/{id}`
+
+**METHOD : ** `GET`
+
+**DESCRIPTION : ** `Devuelve una marca por su id`
+
+**RESPONSE : **
+```json
+{
+  "data":{
+    "id_marca": "int",
+    "name": "string",
+    "description": "string",
+    "image": "string"
+  }
+}
+```
+**RESPONSE ERROR : **
+```json
+{
+  "data": {
+  	"error": "string",
+    "message": "string",
+    "status": "int"
+  }
+}
+```
+# CREATE MARCA
+
+**ROUTE : ** `/marca`
+
+**METHOD : ** `POST`
+
+**DESCRIPTION : ** `Crea una marca`
+
+**BODY : **
+```json
+{
+  "data": {
+    "name": "string", *requerido
+    "description": "string", *requerido
+    "image": "string" *requerido
+  }
+}
+```
+**RESPONSE : **
+```json
+{
+  "data":{
+    "id_marca": "int",
+    "name": "string",
+    "description": "string",
+    "image": "string"
+  }
+}
+```
+**RESPONSE ERROR : **
+```json
+{
+  "data": {
+  	"error": "string",
+    "message": "string",
+    "status": "int"
+  }
+}
+```
+# UPDATE MARCA
+
+**ROUTE : ** `/marca/{id}`
+
+**METHOD : ** `PUT`
+
+**DESCRIPTION : ** `Actualiza una marca por su id`
+
+**BODY : **
+```json
+{
+  "data": {
+    "name": "string", *opcional
+    "description": "string", *opcional
+    "image": "string" *opcional
+  }
+}
+```
+**RESPONSE : **
+```json
+{
+  "data":{
+    "id_marca": "int",
+    "name": "string",
+    "description": "string",
+    "image": "string"
+  }
+}
+```
+**RESPONSE ERROR : **
+```json
+{
+  "data": {
+  	"error": "string",
+    "message": "string",
+    "status": "int"
+  }
+}
+```
+# DELETE MARCA
+
+**ROUTE : ** `/marca/{id}`
+
+**METHOD : ** `DELETE`
+
+**DESCRIPTION : ** `Elimina una marca`
 
 **RESPONSE : **
 ```json
