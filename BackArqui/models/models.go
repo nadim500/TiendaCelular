@@ -20,16 +20,16 @@ type (
 
 	/*Product model from model product*/
 	Product struct {
-		IDProduct         int       `json:"id_product"`
-		Name              string    `json:"name"`
-		FirstDescription  string    `json:"first_description"`
-		SecondDescription string    `json:"second_description"`
-		Feature           string    `json:"feature"`
-		DateCreated       time.Time `json:"datecreated"`
-		Images            []string  `json:"images"`
-		Stock             int       `json:"stock"`
-		MarcaID           int       `json:"marca_id"`
-		CategoryID        int       `json:"category_id"`
+		IDProduct         int       `json:"id_product,omitempty"`
+		Name              string    `json:"name,omitempty"`
+		FirstDescription  string    `json:"first_description,omitempty"`
+		SecondDescription string    `json:"second_description,omitempty"`
+		Feature           string    `json:"feature,omitempty"`
+		DateCreated       time.Time `json:"datecreated,omitempty"`
+		Images            []string  `json:"images,omitempty"`
+		Stock             int       `json:"stock,omitempty"`
+		MarcaID           int       `json:"marca_id,omitempty"`
+		CategoryID        int       `json:"category_id,omitempty"`
 	}
 
 	/*Client model from client table*/

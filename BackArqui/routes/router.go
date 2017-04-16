@@ -9,5 +9,6 @@ func InitRoutes() *mux.Router {
 	router := mux.NewRouter().StrictSlash(false)
 	router = SetCategoryRoutes(router)
 	router = SetMarcaRoutes(router)
+	router = SetProductRoutes(router)
 	return router
 }

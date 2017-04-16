@@ -23,4 +23,14 @@ type (
 	MarcasResource struct {
 		Data []models.Marca `json:"data"`
 	}
+
+	/*ProductResource para mostrar el product*/
+	ProductResource struct {
+		Data models.Product `json:"data"`
+	}
+
+	/*ProductosResource para el array de productos*/
+	ProductosResource struct {
+		Data []models.Product `json:"data"`
+	}
 )

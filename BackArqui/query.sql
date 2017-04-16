@@ -28,9 +28,9 @@ CREATE TABLE product(
     feature VARCHAR NOT NULL,
     datecreated DATE NOT NULL DEFAULT CURRENT_DATE,
     images VARCHAR[],
+    stock INTEGER NOT null,
     marca_id integer NOT NULL,
     category_id integer NOT NULL,
-    stock INTEGER NOT null,
     FOREIGN KEY (marca_id) REFERENCES marca (id_marca),
     FOREIGN KEY (category_id) REFERENCES category (id_category)
 )
