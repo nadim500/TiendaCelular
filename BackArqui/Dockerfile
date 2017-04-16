@@ -13,6 +13,7 @@ ENV GOPATH /go/src/backapp
 RUN go get github.com/lib/pq
 RUN go get github.com/gorilla/mux
 RUN go get github.com/gorilla/handlers
+RUN go get github.com/fatih/structs
 
 EXPOSE 8080
 

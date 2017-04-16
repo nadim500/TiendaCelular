@@ -4,6 +4,7 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/fatih/structs"
 	"github.com/lib/pq"
 
 	"../common"
@@ -98,6 +99,9 @@ func CreateProduct(p *models.Product) error {
 /*UpdateProduct actualiza un producto en la base de datos*/
 func UpdateProduct(p *models.Product, id string) error {
 	log.Println(p)
+	v := structs.HasZero(p)
+	log.Println(v)
+
 	/*i, err := strconv.Atoi(id)
 	if err != nil {
 		log.Printf("[Error convert id to int] %s\n", err)
